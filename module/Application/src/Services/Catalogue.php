@@ -16,8 +16,7 @@ class Catalogue{
         $resultSet = $this->_tableGateway->select();
         $return = array();
 
-        foreach($resultSet as $r)
-            $return[]=$r;
+        foreach($resultSet as $r) {$return[]=$r;}
         return $return;
     }
 
