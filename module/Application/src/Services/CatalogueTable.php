@@ -5,7 +5,7 @@ namespace Application\Services;
 use Zend\Db\TableGateway\TableGatewayInterface;
 use Application\Models\Product;
 
-class Catalogue{
+class CatalogueTable{
     protected $_tableGateway;
 
     public function __construct(TableGatewayInterface $tableGateway){

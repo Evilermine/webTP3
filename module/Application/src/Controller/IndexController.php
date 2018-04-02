@@ -9,15 +9,24 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Services\CatalogueTable;
 
 class IndexController extends AbstractActionController
 {
+    private $_table;
+
+    public function __construct(CatalogueTable $table){
+        $this->_table = $table;
+    }
+
     public function indexAction()
     {
         return new ViewModel();
     }
 
     public function catalogueAction(){
-        return new ViewModel();
+        return new ViewModel([
+            'products' => $this->_table->fetchAll(),
+        ]);
     }
 }

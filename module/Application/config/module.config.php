@@ -51,6 +51,12 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
+    'service-manager' => [
+        'factories' => [
+            Services\CatalogueTable::class => Services\Factories\CatalogueTableFactory::class,
+            Services\CatalogueTableGateway::class => Services\Factories\CatalogueTableGatewayFactory::class,
+        ],
+    ],
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,

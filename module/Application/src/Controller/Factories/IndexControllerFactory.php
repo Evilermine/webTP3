@@ -1,21 +1,19 @@
 <?php
-namespace Application\Services\Factories;
+namespace Application\Controller\Factories;
 
 use Zend\Authentication\AuthenticationService;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Session\SessionManager;
 use Zend\Authentication\Storage\Session as SessionStorage;
+use User\Service\AuthAdapter;
 use Interop\Container\ContainerInterface;
-use Zend\Db\Adapter\AdapterInterface;
-use Application\Model\Auction;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Application\Controller\IndexController;
+use Application\Services\CatalogueTable;
 
 /**
  * The factory responsible for creating of authentication service.
  */
-class AuctionTableGatewayFactory implements FactoryInterface
+class IndexControllerFactory implements FactoryInterface
 {
     /**
      * This method creates the Zend\Authentication\AuthenticationService service 
@@ -24,9 +22,8 @@ class AuctionTableGatewayFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, 
                     $requestedName, array $options = null)
     {
-        $dbAdapter = $container->get(AdapterInterface::class);
-        $resultSetPrototype = new ResultSet();
-        $resultSetPrototype->setArrayObjectPrototype(new Product());
-        return new TableGateway('products', $dbAdapter, null, $resultSetPrototype);
+        $_table = $container->get(CatalogueTable::class);
+        $controller = new IndexController($_table);
+        return $controller;
     }
 }
