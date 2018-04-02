@@ -8,7 +8,7 @@ class BasketProducts{
     public function toValues(){
         return [
             'dateAdded' => $this->dateAdded
-        ]
+        ];
     }
 }
 
