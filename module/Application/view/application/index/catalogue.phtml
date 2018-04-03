@@ -1,0 +1,24 @@
+<main>
+    <table class="datatable">
+        <thead>
+            <tr>
+                <th>nom</th>
+                <th>Prix</th>
+                <th>description</th>
+                <th>image</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($product as $p) : ?>
+                <tr>
+                    <td><?= $this->escapeHtml($p->productName) ?></td>
+                    <td><?= $this->escapeHtml($a->productPrice) ?></td>
+                    <td><?= $this->escapeHtml($a->productDesc) ?></td>
+                    <td><?= $this->escapeHtml($a->imageURL) ?></td>
+                    <td><a class="cursor-ptr" ?>">Edit</a></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</main>
