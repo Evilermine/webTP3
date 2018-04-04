@@ -7,6 +7,8 @@
 
 namespace Application;
 
+use Zend\Db\Adapter\AdapterInterface;
+
 class Module
 {
     const VERSION = '3.0.3-dev';

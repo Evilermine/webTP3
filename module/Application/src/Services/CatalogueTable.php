@@ -9,7 +9,7 @@ class CatalogueTable{
     protected $_tableGateway;
 
     public function __construct(TableGatewayInterface $tableGateway){
-        $this->tableGateway = $tableGateway;
+        $this->_tableGateway = $tableGateway;
     }
 
     public function fetchAll() {
@@ -28,5 +28,4 @@ class CatalogueTable{
         return $this->_tableGateway->select(['productId' => $id])->current();
     }
 }
-
 ?>

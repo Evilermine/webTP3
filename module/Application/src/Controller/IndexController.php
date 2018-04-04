@@ -10,6 +10,8 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Services\CatalogueTable;
+use Application\Form\ProductForm;
+use Application\Models\Product;
 
 class IndexController extends AbstractActionController
 {
@@ -28,5 +30,41 @@ class IndexController extends AbstractActionController
         return new ViewModel([
             'products' => $this->_table->fetchAll(),
         ]);
+    }
+
+    public function addProductAction(){
+        $id = (int)$this->params()->fromRoute('id', -1);
+           
+        $product = new Product();
+        $form = new ProductForm($product);
+            
+        if ($this->getRequest()->isPost()) {
+            $data = $this->params()->fromPost();            
+            
+            $form->setData($data);
+            $update =[
+                'productName' => $data['productName'],
+                'productPrice' => $data['productPrice'],
+                'productDesc' => $data['productDesc'],
+                'imageURL' => $data['imageURL'],
+            ];
+            $this->_table->insert($product, $insert);
+            
+            return $this->redirect()->toRoute('catalogue');                             
+        } else {
+            $form->setData([
+                    'productName'=>$product->productName,
+                    'productPrice'=>$product->productPrice,
+                    'productDesc'=>$product->productDesc,
+                    'imageURL'=>$product->imageURL,
+                ]);
+        }  
+            
+            
+        return new ViewModel(array(
+            'product' => $product,
+            'form' => $form
+        ));
+
     }
 }

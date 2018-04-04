@@ -4,11 +4,11 @@ namespace Application\Models;
 
 class Product {
 
-    private $productId;
-    private $productName;
-    private $productDesc;
-    private $productPrice;
-    private $imageURL;
+    public $productId;
+    public $productName;
+    public $productDesc;
+    public $productPrice;
+    public $imageURL;
 
   public function __construct(){
 

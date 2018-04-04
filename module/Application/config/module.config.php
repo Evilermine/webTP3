@@ -10,6 +10,11 @@ namespace Application;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Db;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Adapter\AdapterInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
 return [
     'router' => [
@@ -44,17 +49,27 @@ return [
                     ],
                 ],
             ],
+            'addProduct'    => [
+                'type'      => Literal::class,
+                'options'   => [
+                    'route'     => '/addProduct',
+                    'defaults'  => [
+                        'controller'    => Controller\IndexController::class,
+                        'action'        => 'addProduct',
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            Services\CatalogueTableGateway::class => Services\Factories\CatalogueTableGatewayFactory::class,
+            Services\CatalogueTable::class => Services\Factories\CatalogueTableFactory::class,
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-        ],
-    ],
-    'service-manager' => [
-        'factories' => [
-            Services\CatalogueTable::class => Services\Factories\CatalogueTableFactory::class,
-            Services\CatalogueTableGateway::class => Services\Factories\CatalogueTableGatewayFactory::class,
+            Controller\IndexController::class => Controller\Factories\IndexControllerFactory::class,
         ],
     ],
     'view_manager' => [
@@ -70,7 +85,7 @@ return [
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
-            __DIR__ . '/../view',
+            __DIR__ . '/../view/',
         ],
     ],
 ];

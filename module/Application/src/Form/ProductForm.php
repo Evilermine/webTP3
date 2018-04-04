@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Forms;
+namespace Application\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Fieldset;
@@ -19,7 +19,6 @@ class ProductForm extends Form {
 
         // POST method
         $this->setAttribute('method', 'post');
-
         $this->setFields();
     }
 
@@ -66,5 +65,3 @@ class ProductForm extends Form {
         ]);
     }
 }
-
-?>

@@ -1,0 +1,76 @@
+<main>
+<?php
+$form = $this->form;
+
+$form->get('productName')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'1234'
+    ]);
+
+$form->get('productPrice')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'30'
+    ]);
+
+$form->get('productDesc')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'23'
+    ]);
+
+$form->get('imageURL')->setAttributes([
+    'class'=>'form-control', 
+    'placeholder'=>'12'
+    ]);
+
+$form->get('submit')
+        ->setAttributes(['class'=>'btn btn-primary'])
+        ->setValue('Save');
+
+$form->prepare();
+?>
+
+<h1>Edit Auction <?= $this->escapeHtml($product->productId); ?></h1>
+
+<table class="datatable">
+<tbody>
+<?= $this->form()->openTag($form); ?>
+        
+<div class="form-row row">  
+    <div class="form-group col-md-4 col-centered">
+        <?= $this->formLabel($form->get('productName')); ?>
+        <?= $this->formElement($form->get('productName')); ?>
+        <?= $this->formElementErrors($form->get('productName')); ?> 
+    </div>
+</div>                  
+
+<div class="form-row row">  
+    <div class="form-group col-md-4 col-centered">
+        <?= $this->formLabel($form->get('productPrice')); ?>
+        <?= $this->formElement($form->get('productPrice')); ?>
+        <?= $this->formElementErrors($form->get('productPrice')); ?>
+    </div>
+</div>       
+
+<div class="form-row row">  
+    <div class="form-group col-md-4 col-centered">
+        <?= $this->formLabel($form->get('productDesc')); ?>
+        <?= $this->formElement($form->get('productDesc')); ?>
+        <?= $this->formElementErrors($form->get('productDesc')); ?>
+    </div>
+</div>     
+
+<div class="form-row row">  
+    <div class="form-group col-md-4 col-centered">
+        <?= $this->formLabel($form->get('imageURL')); ?>
+        <?= $this->formElement($form->get('imageURL')); ?>
+        <?= $this->formElementErrors($form->get('imageURL')); ?>
+    </div>
+</div>                
+
+<div class="form-row row">  
+    <div class="form-group col-md-3 col-centered">                        
+        <?= $this->formElement($form->get('submit')); ?>
+    </div>
+</div>   
+
+</main>
