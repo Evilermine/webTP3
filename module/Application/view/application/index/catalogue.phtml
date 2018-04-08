@@ -1,24 +1,41 @@
 <main>
     <table class="datatable">
-        <thead>
-            <tr>
-                <th>nom</th>
-                <th>Prix</th>
-                <th>description</th>
-                <th>image</th>
-                <th>&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($product as $p) : ?>
-                <tr>
-                    <td><?= $this->escapeHtml($p->productName) ?></td>
-                    <td><?= $this->escapeHtml($a->productPrice) ?></td>
-                    <td><?= $this->escapeHtml($a->productDesc) ?></td>
-                    <td><?= $this->escapeHtml($a->imageURL) ?></td>
-                    <td><a class="cursor-ptr" ?>">Edit</a></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <?php foreach ($products as $p) : ?>
+
+       <div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="container" id="image">
+                <img src="<?= $this->escapeHtml($p->imageURL) ?>" height="28" >
+				<button class="btn btn-primary" type="button"></button>
+			</div>
+		</div>
+		<div class="col-sm-7">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+						<h1><?= $this->escapeHtml($p->productName) ?></h1>
+				</div>
+				<div class="panel-body">
+					<h2><?= $this->escapeHtml($p->productDesc) ?></h2>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p><?= $this->escapeHtml($p->productPrice) ?>$</p>
+				</div>
+					<button class="btn btn-primary" type="button">
+                        Ajouter au panier
+					</button>
+				</div>	
+				</div>
+			</div>
+        </div>
+        
+        <?php endforeach; ?>  
+	</div>
+</div>
+
+    <a class="btn btn-primary" role="button" href="<?=$this->url('addProduct')?>" > Ajouter des produits </a>
 </main>

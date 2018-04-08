@@ -3,7 +3,9 @@
 return [
     'db' => [
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=onlineCatalogue;host=localhost;charset=utf8',
+        'dsn' => 'mysql:dbname=onlineCatalogue;host=127.0.0.1;charset=utf8',
+        'username' => 'root',
+        'password' => '',
     ],
     
     'service_manager' => [

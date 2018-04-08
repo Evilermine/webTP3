@@ -2,6 +2,7 @@
 
 namespace Application\Form;
 
+use Zend\File;
 use Zend\Form\Form;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilter;
@@ -48,7 +49,7 @@ class ProductForm extends Form {
         ]);
 
         $this->add([
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\File',
             'name' => 'imageURL',
             'options' => [
                 'label' => 'image',

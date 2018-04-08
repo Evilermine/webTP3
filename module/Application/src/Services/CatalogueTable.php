@@ -17,11 +17,22 @@ class CatalogueTable{
         $return = array();
 
         foreach($resultSet as $r) {$return[]=$r;}
+        
         return $return;
     }
 
-    public function insert(Product $p){
-        $this->_tableGateway->insert($p->toValues());
+    public function insert($data){
+
+
+
+        $insert  =[
+            'productName' => $data['productName'],
+            'productPrice' => $data['productPrice'],
+            'productDesc' => $data['productDesc'],
+            'imageURL' => $data['imageURL'],
+        ];
+
+        $this->_tableGateway->insert($insert);
     }
 
     public function find($id){

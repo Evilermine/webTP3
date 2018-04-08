@@ -8,7 +8,7 @@ use Zend\Router\Http\Literal;
 return [
     'controllers' => [
         'factories' => [
-            Controller\UserController::class => InvokableFactory::class,
+            Controller\AuthController::class => InvokableFactory::class,
         ],
     ],
     'router' => [

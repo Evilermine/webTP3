@@ -42,13 +42,8 @@ class IndexController extends AbstractActionController
             $data = $this->params()->fromPost();            
             
             $form->setData($data);
-            $update =[
-                'productName' => $data['productName'],
-                'productPrice' => $data['productPrice'],
-                'productDesc' => $data['productDesc'],
-                'imageURL' => $data['imageURL'],
-            ];
-            $this->_table->insert($product, $insert);
+            
+            $this->_table->insert($data);
             
             return $this->redirect()->toRoute('catalogue');                             
         } else {

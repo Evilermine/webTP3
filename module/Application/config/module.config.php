@@ -50,9 +50,9 @@ return [
                 ],
             ],
             'addProduct'    => [
-                'type'      => Literal::class,
+                'type'      => Segment::class,
                 'options'   => [
-                    'route'     => '/addProduct',
+                    'route'     => '/addProduct[/:id]',
                     'defaults'  => [
                         'controller'    => Controller\IndexController::class,
                         'action'        => 'addProduct',

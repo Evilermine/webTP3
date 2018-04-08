@@ -4,23 +4,20 @@ $form = $this->form;
 
 $form->get('productName')->setAttributes([
     'class'=>'form-control', 
-    'placeholder'=>'1234'
+    'placeholder'=>'Name'
     ]);
 
 $form->get('productPrice')->setAttributes([
     'class'=>'form-control', 
-    'placeholder'=>'30'
+    'placeholder'=>'price'
     ]);
 
 $form->get('productDesc')->setAttributes([
     'class'=>'form-control', 
-    'placeholder'=>'23'
+    'placeholder'=>'Description'
     ]);
 
-$form->get('imageURL')->setAttributes([
-    'class'=>'form-control', 
-    'placeholder'=>'12'
-    ]);
+
 
 $form->get('submit')
         ->setAttributes(['class'=>'btn btn-primary'])

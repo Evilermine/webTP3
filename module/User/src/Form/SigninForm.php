@@ -56,6 +56,16 @@ class SigninForm extends Form
          ],
     ]);
 
+    $this->add([
+            'type' => 'submit',
+            'name' => 'submit',
+            'attributes' => [
+                'value' => 'Sign in',
+                'id' => 'submit',
+                'class' => 'btn btn-primary',
+            ],
+        ]);
+
     //???
     $this->add([            
         'type'  => 'hidden',
