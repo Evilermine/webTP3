@@ -10,36 +10,15 @@ use User\Models\User;
 use User\Services\AuthManager;
 use User\Services\UserManager;
 use Zend\Authentication\Result;
-use Zend\Permission\Rbac\Rbac;
 
 class AuthController extends AbstractActionController
 {
     private $_authManager;
     private $_userManager;
-    private $_rbac;
 
     public function __construct($authManager, $userManager){
         $this->_authManager = $authManager;
         $this->_userManager = $userManager;
-        $this->_rbac = new Rbac();
-        $this->addRoles();
-    }
-
-    private function addRoles()
-    {
-        $this->_rbac->setCreateMissingRoles(true);
-
-        $this->$_rbac->addRole('Guest', ['LoggedUser']);
-        $this->$_rbac->addRole('LoggedUser', ['Administrator']);
-        $this->$_rbac->addRole('Administrator');
-
-        $this->$_rbac->getRole('Guest')->addPermission('read');
-        $this->$_rbac->getRole('LoggedUser')->addPermission('add-to-basket');
-        $this->$_rbac->getRole('Administrator')->addPermission('write');
-    }
-
-    public function hasPermission($role, $permission) {
-        return $this->$_rbac->isGranted($role, $permission);
     }
 
     public function loginAction(){

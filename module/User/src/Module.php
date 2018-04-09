@@ -16,5 +16,61 @@ class Module implements ConfigProviderInterface
         return include __DIR__ . '/../config/module.config.php';
     }
 
+    /**
+     * Méthodes appelé une seule fois lors de la mise en place du module
+     * Permet d'enregistrer des listeners d'évènements 
+     */
+    public function onBootstrap(MvcEvent $event)
+    {
+        // Récupération du gestionnaire d'évènement
+        $eventManager = $event->getApplication()->getEventManager();
+        $sharedEventManager = $eventManager->getSharedManager();
+
+        // Enregistrement de la méthode onDispatch comme gestionnaire d'évènement
+        $sharedEventManager->attach(AbstractActionController::class, 
+                MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
+    }
     
+    /**
+     * Intercepte chacune des requêtes envoyé aux contrôleurs et vérifies
+     * si il est autoriser en appelant la méthode filterAccess
+     */
+    public function onDispatch(MvcEvent $event)
+    {
+        // getTarget nous renvoie le contrôleur visé
+        $controller = $event->getTarget();
+        $controllerName = $event->getRouteMatch()->getParam('controller', null);
+        // Récupération de l'action pour ce contrôleur
+        $actionName = $event->getRouteMatch()->getParam('action', null);
+
+        var_dump($controllerName);
+        var_dump($actionName);
+        
+        // Permet de convertir edit-member en editMember
+        $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
+        
+        // Récupère l'instance du gestionnaire d'authentification
+        $authManager = $event->getApplication()->getServiceManager()->get(AuthManager::class);
+        
+        // Pour chaque contrôleur on vérifie si l'accès est autorisé
+        // En evitant pour AuthController, cela causerait une boucle infini
+        if ($controllerName!=AuthController::class && !$authManager->filterAccess($controllerName, $actionName)) {
+            
+            // Récupération de l'URL que l'utilisateur voulait accéder
+            // Permet de le rediriger après authentification
+            $uri = $event->getApplication()->getRequest()->getUri();
+
+            // Retire toutes les données non importantes pour ne garder que le chemin relatif
+            // Permet de ne pas avoir d'URL de redirection tel que http://malicious.com
+            $uri->setScheme(null)
+                ->setHost(null)
+                ->setPort(null)
+                ->setUserInfo(null);
+            $redirectUrl = $uri->toString();
+            
+            // Redirige vers la page de login
+            return $controller->redirect()->toRoute('login', [], 
+                    ['query'=>['redirectUrl'=>$redirectUrl]]);
+        }
+    }
 }
