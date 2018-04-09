@@ -8,6 +8,12 @@
 namespace Application;
 
 use Zend\Db\Adapter\AdapterInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\ModuleManager;
+use Zend\Mvc\Controller\AbstractActionController;
+use User\Controller\AuthController;
+use User\Services\AuthManager;
 
 class Module
 {

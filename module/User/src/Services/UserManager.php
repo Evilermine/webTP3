@@ -18,7 +18,6 @@ class UserManager {
         $salt = $this->generateSalt();
         $password = hash('sha512', $salt . $data['password']);
         $base64pass = base64_encode($password);
-        var_dump($base64pass);
         
         $insert = [
             'username' => $data['username'],

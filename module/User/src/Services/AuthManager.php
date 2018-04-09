@@ -32,8 +32,6 @@ class AuthManager
         if ($result->getCode()==Result::SUCCESS) {
             $this->sessionManager->rememberMe(60*60*24*30); // 30 jours
         }
-
-        var_dump($result);
         
         return $result;
     }
@@ -47,8 +45,14 @@ class AuthManager
         $this->authService->clearIdentity();               
     }
 
+    public function isLogged() {
+        return $this->authService->hasIdentity();
+    }
+
     public function filterAccess($controllerName, $actionName)
     {
+        var_dump(isset($this->config['controllers'][$controllerName]));
+
         // Determine mode - 'restrictive' (default) or 'permissive'. In restrictive
         // mode all controller actions must be explicitly listed under the 'access_filter'
         // config key, and access is denied to any not listed action for unauthorized users. 
@@ -58,7 +62,7 @@ class AuthManager
         $mode = isset($this->config['options']['mode'])?$this->config['options']['mode']:'restrictive';
         if ($mode!='restrictive' && $mode!='permissive')
             throw new \Exception('Invalid access filter mode (expected either restrictive or permissive mode');
-        
+                
         if (isset($this->config['controllers'][$controllerName])) {
             $items = $this->config['controllers'][$controllerName];
             foreach ($items as $item) {
