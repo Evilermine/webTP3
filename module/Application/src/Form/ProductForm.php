@@ -20,7 +20,50 @@ class ProductForm extends Form {
 
         // POST method
         $this->setAttribute('method', 'post');
+        $this->setAttribute('enctype', 'multipart/form-data');
         $this->setFields();
+        $this->addFilter();
+    }
+
+    protected function addFilter(){
+        $inputFilter = new InputFilter();
+
+        $inputFilter->add([
+            'type'     => 'Zend\InputFilter\FileInput',
+            'name'     => 'imageURL',
+            'required' => true,   
+            'validators' => [
+                ['name'    => 'FileUploadFile'],
+                [
+                    'name'    => 'FileMimeType',                        
+                    'options' => [                            
+                        'mimeType'  => ['image/jpeg', 'image/png', 'image/jpg']
+                    ]
+                ],
+                ['name'    => 'FileIsImage'],
+                [
+                    'name'    => 'FileImageSize',
+                    'options' => [
+                        'minWidth'  => 128,
+                        'minHeight' => 128,
+                        'maxWidth'  => 4096,
+                        'maxHeight' => 4096
+                    ]
+                ],
+            ],
+            'filters'  => [                    
+                [
+                    'name' => 'FileRenameUpload',
+                    'options' => [  
+                        'target' => './data/upload',
+                        'useUploadName' => true,
+                        'useUploadExtension' => true,
+                        'overwrite' => true,
+                        'randomize' => false
+                    ]
+                ]
+            ],   
+        ]);
     }
 
     protected function setFields(){
@@ -49,10 +92,13 @@ class ProductForm extends Form {
         ]);
 
         $this->add([
-            'type' => 'Zend\Form\Element\File',
+            'type' => 'File',
             'name' => 'imageURL',
+            'attributes' => [
+                'id' => 'imageURL'
+            ],
             'options' => [
-                'label' => 'image',
+                'label' => 'Fichier image',
             ],
         ]);
 

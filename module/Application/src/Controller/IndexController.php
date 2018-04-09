@@ -10,15 +10,18 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Services\CatalogueTable;
+use Application\Services\ImageManager;
 use Application\Form\ProductForm;
 use Application\Models\Product;
 
 class IndexController extends AbstractActionController
 {
     private $_table;
+    private $_imageManager;
 
-    public function __construct(CatalogueTable $table){
+    public function __construct(CatalogueTable $table, $imageManager){
         $this->_table = $table;
+        $this->_imageManager = $imageManager;
     }
 
     public function indexAction()
@@ -39,13 +42,27 @@ class IndexController extends AbstractActionController
         $form = new ProductForm($product);
             
         if ($this->getRequest()->isPost()) {
+
+            $request = $this->getRequest();
+            $data = array_merge_recursive(
+                $request->getPost()->toArray(),
+                $request->getFiles()->toArray()
+            );
+
+            $form->setData($data);
+
+            if($form->isValid()) {
+                $data = $form->getData();
+                return $this->redirect()->toRoute('catalogue');
+            }
+            /*
             $data = $this->params()->fromPost();            
             
             $form->setData($data);
             
             $this->_table->insert($data);
             
-            return $this->redirect()->toRoute('catalogue');                             
+            return $this->redirect()->toRoute('catalogue');   */                          
         } else {
             $form->setData([
                     'productName'=>$product->productName,

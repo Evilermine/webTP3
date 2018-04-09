@@ -12,7 +12,6 @@ class AuthController extends AbstractActionController
     {
         $form = new SigninForm();
 
-
         return new ViewModel(['form' => $form]);
     }
     
