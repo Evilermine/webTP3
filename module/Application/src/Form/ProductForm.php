@@ -10,19 +10,15 @@ use Application\Models\Product;
 
 class ProductForm extends Form {
 
-    private $_product;
-
-    public function __construct(Product $product){
-        $this->_product = $product;
-
+    public function __construct($name = null, $options = []){
         //form name
-        parent::__construct('product-form');
+        parent::__construct($name, $options);
 
         // POST method
         $this->setAttribute('method', 'post');
         $this->setAttribute('enctype', 'multipart/form-data');
         $this->setFields();
-        $this->addFilter();
+        //$this->addFilter();
     }
 
     protected function addFilter(){
@@ -59,7 +55,7 @@ class ProductForm extends Form {
                         'useUploadName' => true,
                         'useUploadExtension' => true,
                         'overwrite' => true,
-                        'randomize' => false
+                        'randomize' => true
                     ]
                 ]
             ],   
