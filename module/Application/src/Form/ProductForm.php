@@ -16,7 +16,7 @@ class ProductForm extends Form {
 
         // POST method
         $this->setAttribute('method', 'post');
-        $this->setAttribute('enctype', 'multipart/form-data');
+        //$this->setAttribute('enctype', 'multipart/form-data');
         $this->setFields();
         //$this->addFilter();
     }
@@ -88,7 +88,7 @@ class ProductForm extends Form {
         ]);
 
         $this->add([
-            'type' => 'File',
+            'type' => 'text',
             'name' => 'imageURL',
             'attributes' => [
                 'id' => 'imageURL'

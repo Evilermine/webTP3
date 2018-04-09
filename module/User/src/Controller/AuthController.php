@@ -32,14 +32,6 @@ class AuthController extends AbstractActionController
             $form->setData($data);
                 $result = $this->_authManager->login($data['username'], $data['password']);
 
-<<<<<<< HEAD
-=======
-            if($form->isValid()){
-                $data = $form->getData();
-
-                $result = $_authManager->login($data['username'], $data['password']);
-
->>>>>>> 78d9db7d3557b5cdcea80b087389211cc153a0d4
                 if($result->getCode() == Result::SUCCESS){
                     return $this->redirect()->toRoute('catalogue');  
                 }
