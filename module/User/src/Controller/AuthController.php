@@ -54,11 +54,6 @@ class AuthController extends AbstractActionController
             $form->setData($data);
                 $result = $this->_authManager->login($data['username'], $data['password']);
 
-            if($form->isValid()){
-                $data = $form->getData();
-
-                $result = $_authManager->login($data['username'], $data['password']);
-
                 if($result->getCode() == Result::SUCCESS){
                     return $this->redirect()->toRoute('catalogue');  
                 }
@@ -66,7 +61,6 @@ class AuthController extends AbstractActionController
                     $isLoginError = true;
                 }
             }
-        }
 
         return new ViewModel([
             'form' => $form,
