@@ -49,7 +49,7 @@ class ProductForm extends Form {
         ]);
 
         $this->add([
-            'type' => 'Zend\Form\Element\File',
+            'type' => 'text',
             'name' => 'imageURL',
             'options' => [
                 'label' => 'image',
