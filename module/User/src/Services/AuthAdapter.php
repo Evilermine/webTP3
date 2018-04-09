@@ -40,7 +40,7 @@ class AuthAdapter implements AdapterInterface
         }             
         
         return new Result(
-                Result::FAILURE_CREDENTIAL_INVALID, 
+                Result::FAILURE_CREDENTIAL_INVALID,  
                 null, 
                 ['Invalid password.']);        
     }

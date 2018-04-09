@@ -26,7 +26,7 @@ class IndexController extends AbstractActionController
         return new ViewModel();
     }
 
-    public function catalogueAction(){
+    public function catalogueAction() {
         return new ViewModel([
             'products' => $this->_table->fetchAll(),
         ]);
