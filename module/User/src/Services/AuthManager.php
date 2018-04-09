@@ -32,6 +32,8 @@ class AuthManager
         if ($result->getCode()==Result::SUCCESS) {
             $this->sessionManager->rememberMe(60*60*24*30); // 30 jours
         }
+
+        var_dump($result);
         
         return $result;
     }

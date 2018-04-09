@@ -1,5 +1,5 @@
 <?php
-namespace Application\Service;
+namespace Application\Services;
 
 /*
     Source : https://olegkrivtsov.github.io/using-zend-framework-3-book/html/en/Uploading_Files_with_Forms/Example__Image_Gallery.html

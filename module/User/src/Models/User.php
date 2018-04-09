@@ -16,14 +16,14 @@ class User{
     {
         $this->_username = (!empty($data['username'])) ? $data['username'] : null;
         $this->_salt = (!empty($data['salt'])) ? $data['salt'] : null;
-        $this->_hashedPass = (!empty($data['hashedPass'])) ? $data['hashedPass'] : null;
+        $this->_hashedPass = (!empty($data['password'])) ? $data['password'] : null;
     }
 
     public function toValues(){
         return [
             'username' => $this->_username,
             'salt' => $this->_salt,
-            'hashedPass' => $this->_hashedPass
+            'password' => $this->_hashedPass
         ];
     }
 }

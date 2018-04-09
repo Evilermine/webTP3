@@ -29,12 +29,13 @@ class AuthAdapter implements AdapterInterface
                 ['Invalid credentials.']);        
         }   
         
-        $sentPass = hash('sha512', $this->_password . $user->_salt);
+        
+        $sentPass = hash('sha512', $user->_salt . $this->_password );
 
-        if ($user->_password == $sentPass) {
+        if (base64_decode($user->_hashedPass) == $sentPass) {
             return new Result(
                     Result::SUCCESS, 
-                    $this->_username, 
+                    $this->username, 
                     ['Authenticated successfully.']);        
         }             
         

@@ -18,6 +18,6 @@ class UserGatewayFactory implements FactoryInterface
         $dbAdapter = $container->get(AdapterInterface::class);
         $resultSetPrototype = new ResultSet();
         $resultSetPrototype->setArrayObjectPrototype(new User());
-        return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
+        return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
     }
 }

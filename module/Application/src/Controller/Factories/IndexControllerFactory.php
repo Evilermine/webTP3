@@ -8,6 +8,7 @@ use Zend\Authentication\Storage\Session as SessionStorage;
 use Interop\Container\ContainerInterface;
 use Application\Controller\IndexController;
 use Application\Services\CatalogueTable;
+use Application\Services\ImageManager;
 
 /**
  * The factory responsible for creating of authentication service.
