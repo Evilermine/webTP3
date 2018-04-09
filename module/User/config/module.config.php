@@ -4,19 +4,29 @@ namespace User;
 
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 
 return [
     'controllers' => [
         'factories' => [
-            Controller\AuthController::class => InvokableFactory::class,
+            Controller\AuthController::class => Controller\Factories\AuthControllerFactory::class,
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            Services\AuthManager::class => Services\Factories\AuthManagerFactory::class,
+            Services\UserManager::class => Services\Factories\UserManagerFactory::class,
+            Services\AuthAdapter::class => Services\Factories\AuthAdapterFactory::class,
+            Services\UserGateway::class => Services\Factories\UserGatewayFactory::class,
+            \Zend\Authentication\AuthenticationService::class => Services\Factories\AuthenticationServiceFactory::class,
         ],
     ],
     'router' => [
         'routes' => [
             'login' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route' => '/login',
+                    'route' => '/login[/:id]',
                     'defaults' => [
                         'controller' => Controller\AuthController::class,
                         'action' => 'login',

@@ -92,7 +92,11 @@ class ProductForm extends Form {
         ]);
 
         $this->add([
+<<<<<<< HEAD
             'type' => 'File',
+=======
+            'type' => 'text',
+>>>>>>> ba6f98aa61a38cba2564029f5a2ad4d68136979a
             'name' => 'imageURL',
             'attributes' => [
                 'id' => 'imageURL'
