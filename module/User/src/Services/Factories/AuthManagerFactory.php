@@ -6,7 +6,6 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Authentication\AuthenticationService;
 use Zend\Session\SessionManager;
 use User\Services\AuthManager;
-use User\Services\UserManager;
 
 class AuthManagerFactory implements FactoryInterface
 {

@@ -7,6 +7,8 @@ use Zend\View\Model\ViewModel;
 use User\Form\SigninForm;
 use User\Form\SignupForm;
 use User\Models\User;
+use User\Service\AuthManager;
+use User\Service\UserManager;
 use Zend\Authentication\Result;
 
 class AuthController extends AbstractActionController
@@ -38,7 +40,7 @@ class AuthController extends AbstractActionController
                 else{
                     $isLoginError = true;
                 }
-        }
+            }
 
         return new ViewModel([
             'form' => $form,

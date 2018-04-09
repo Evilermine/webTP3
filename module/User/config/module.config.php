@@ -60,4 +60,15 @@ return [
             'user' => __DIR__ . '/../view',
         ],
     ],
+    'access_filter' => [
+        'options' => [
+            'mode' => 'restrictive',
+        ],
+        'controllers' => [
+            Controller\AuthController::class => [
+                ['actions' => ['login'], 'allow' => '*'],
+                ['actions' => ['signup'], 'allow' => '@'],
+            ]
+        ]
+    ]
 ];
