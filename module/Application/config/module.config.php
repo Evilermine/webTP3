@@ -65,7 +65,6 @@ return [
         'factories' => [
             Services\CatalogueTableGateway::class => Services\Factories\CatalogueTableGatewayFactory::class,
             Services\CatalogueTable::class => Services\Factories\CatalogueTableFactory::class,
-            Services\ImageManager::class => InvokableFactory::class,
         ],
     ],
     'controllers' => [

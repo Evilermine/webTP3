@@ -1,5 +1,7 @@
 <main>
 <?php
+
+$form->prepare();
 $form = $this->form;
 
 $form->get('productName')->setAttributes([
@@ -9,7 +11,7 @@ $form->get('productName')->setAttributes([
 
 $form->get('productPrice')->setAttributes([
     'class'=>'form-control', 
-    'placeholder'=>'price'
+    'placeholder'=>'Price'
     ]);
 
 $form->get('productDesc')->setAttributes([
@@ -17,13 +19,9 @@ $form->get('productDesc')->setAttributes([
     'placeholder'=>'Description'
     ]);
 
-
-
 $form->get('submit')
         ->setAttributes(['class'=>'btn btn-primary'])
         ->setValue('Save');
-
-$form->prepare();
 ?>
 
 <h1>Entrez les informations du produit <?= $this->escapeHtml($product->productId); ?></h1>
@@ -60,6 +58,7 @@ $form->prepare();
     <div class="form-group col-md-4 col-centered">
         <?= $this->formLabel($form->get('imageURL')); ?>
         <?= $this->formElement($form->get('imageURL')); ?>
+        <!-- ?= $this->formFile($form->get('imageURL')); ?> -->
         <?= $this->formElementErrors($form->get('imageURL')); ?>
     </div>
 </div>                

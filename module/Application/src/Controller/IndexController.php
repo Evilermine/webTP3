@@ -10,18 +10,15 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Services\CatalogueTable;
-use Application\Services\ImageManager;
 use Application\Form\ProductForm;
 use Application\Models\Product;
 
 class IndexController extends AbstractActionController
 {
     private $_table;
-    private $_imageManager;
 
-    public function __construct(CatalogueTable $table, $imageManager){
+    public function __construct(CatalogueTable $table){
         $this->_table = $table;
-        $this->_imageManager = $imageManager;
     }
 
     public function indexAction()
@@ -39,30 +36,32 @@ class IndexController extends AbstractActionController
         $id = (int)$this->params()->fromRoute('id', -1);
            
         $product = new Product();
-        $form = new ProductForm($product);
+        $form = new ProductForm('product-form');
             
         if ($this->getRequest()->isPost()) {
-
-            $request = $this->getRequest();
-            $data = array_merge_recursive(
-                $request->getPost()->toArray(),
-                $request->getFiles()->toArray()
-            );
-
-            $form->setData($data);
-
-            if($form->isValid()) {
-                $data = $form->getData();
-                return $this->redirect()->toRoute('catalogue');
-            }
-            /*
+            
             $data = $this->params()->fromPost();            
             
             $form->setData($data);
             
             $this->_table->insert($data);
             
-            return $this->redirect()->toRoute('catalogue');   */                          
+            return  $this->redirect()->toRoute('catalogue');
+            /*
+            $data = array_merge_recursive([
+                $this->getRequest()->getPost()->toArray(),
+                $this->getRequest()->getFiles()->toArray()
+            ]);
+
+            //$imageURL = $data[1]["imageURL"]["tmp_name"];
+
+            $form->setData($data);
+            var_dump($form);
+            if($form->isValid()) {
+                $data = $form->getData();
+                var_dump($data);
+            }               
+            */
         } else {
             $form->setData([
                     'productName'=>$product->productName,

@@ -19,6 +19,6 @@ class IndexControllerFactory implements FactoryInterface
      * and returns its instance. 
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null){
-        return new IndexController($container->get(CatalogueTable::class), $container->get(ImageManager::class));
+        return new IndexController($container->get(CatalogueTable::class));
     }
 }

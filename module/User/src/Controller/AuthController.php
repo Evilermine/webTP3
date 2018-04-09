@@ -35,9 +35,6 @@ class AuthController extends AbstractActionController
 
                 $result = $_authManager->login($data['username'], $data['password']);
 
-<<<<<<< HEAD
-        return new ViewModel(['form' => $form]);
-=======
                 if($result->getCode() == Result::SUCCESS){
                     return $this->redirect()->toRoute('catalogue');  
                 }
@@ -54,7 +51,6 @@ class AuthController extends AbstractActionController
             'form' => $form,
             'isLoginError' => $isLoginError,
             ]);
->>>>>>> ba6f98aa61a38cba2564029f5a2ad4d68136979a
     }
     
     public function logoutAction()
