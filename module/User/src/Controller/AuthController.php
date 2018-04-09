@@ -7,6 +7,8 @@ use Zend\View\Model\ViewModel;
 use User\Form\SigninForm;
 use User\Form\SignupForm;
 use User\Models\User;
+use User\Service\AuthManager;
+use User\Service\UserManager;
 use Zend\Authentication\Result;
 
 class AuthController extends AbstractActionController
@@ -32,20 +34,18 @@ class AuthController extends AbstractActionController
             $form->setData($data);
                 $result = $this->_authManager->login($data['username'], $data['password']);
 
-<<<<<<< HEAD
-=======
             if($form->isValid()){
                 $data = $form->getData();
 
                 $result = $_authManager->login($data['username'], $data['password']);
 
->>>>>>> 78d9db7d3557b5cdcea80b087389211cc153a0d4
                 if($result->getCode() == Result::SUCCESS){
                     return $this->redirect()->toRoute('catalogue');  
                 }
                 else{
                     $isLoginError = true;
                 }
+            }
         }
 
         return new ViewModel([
