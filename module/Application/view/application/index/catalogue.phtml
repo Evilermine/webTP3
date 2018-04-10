@@ -1,6 +1,5 @@
 <main>
-	<?= $this->appendStylesheet('catalogue') ?>
-
+	<?= $this->headLink()->appendStylesheet('css/catalogue.css') ?>
 
     <table class="datatable">
     <?php foreach ($products as $p) : ?>
@@ -9,8 +8,8 @@
 	<div class="row">
 		<div class="col-sm-3">
 			<div class="container" id="image">
-                <img src="<?= $this->escapeHtml($p->imageURL) ?>" height="28" >
-				<button class="btn btn-primary" type="button"></button>
+                <img src="<?= $this->escapeHtml($p->imageURL) ?>" >
+				<button class="btn" type="button"></button>
 			</div>
 		</div>
 		<div class="col-sm-7">
@@ -28,8 +27,7 @@
 				<div class="panel-heading">
 					<p><?= $this->escapeHtml($p->productPrice) ?>$</p>
 				</div>
-					<button class="btn btn-primary" type="button">
-                        Ajouter au panier
+					<button class="btn" type="button" id="ajouter">
 					</button>
 				</div>	
 				</div>
