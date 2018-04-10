@@ -47,8 +47,15 @@ class AuthManager
         $this->authService->clearIdentity();               
     }
 
+    public function isLogged()
+    {
+        return $this->authService->hasIdentity();
+    }
+
     public function filterAccess($controllerName, $actionName)
     {
+        var_dump($controllerName);
+        var_dump($actionName);
         // Determine mode - 'restrictive' (default) or 'permissive'. In restrictive
         // mode all controller actions must be explicitly listed under the 'access_filter'
         // config key, and access is denied to any not listed action for unauthorized users. 

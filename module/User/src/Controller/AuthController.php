@@ -56,7 +56,10 @@ class AuthController extends AbstractActionController
     
     public function logoutAction()
     {
+        if($this->_authManager->isLogged())
+            $this->_authManager->logout();
 
+        return $this->redirect()->toRoute('catalogue');
     }
 
     public function signupAction(){
