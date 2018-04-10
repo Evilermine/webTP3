@@ -11,13 +11,13 @@
 
 .panel-heading {
 	text-align : center;
-	margin-bottom : 10px;
 	border-style : solid;
 	border-width : 2px;
 	background-color : white;
     box-shadow : 2px 0px 3px;
     height: auto;
-    width: 100%;
+	width: 100%;
+	margin-bottom: 10px;
 }
 
 .panel-heading h1 {
@@ -27,7 +27,7 @@
 .panel-heading p {
 	position : relative;
 	top : 25%;
-	font-size : 30px;
+	font-size : 28px;
 }
 
 .panel-body {
@@ -60,8 +60,8 @@
 
 #ajouter {
 	background-image : url('../img/produits/panier-plus.png');
-	width : 90%;
-	height : 10%;
+	width : 120px;
+	height : 120px;
 	background-size :100% 100%;
 }
 
@@ -91,6 +91,10 @@
 
 #image img{
 	transition: .5s ease;
+	border-radius: 8px;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
+	margin-top: auto;
+	margin-bottom:auto;
 }
 
 #image:hover button{

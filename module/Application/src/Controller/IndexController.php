@@ -47,21 +47,6 @@ class IndexController extends AbstractActionController
             $this->_table->insert($data);
             
             return  $this->redirect()->toRoute('catalogue');
-            /*
-            $data = array_merge_recursive([
-                $this->getRequest()->getPost()->toArray(),
-                $this->getRequest()->getFiles()->toArray()
-            ]);
-
-            //$imageURL = $data[1]["imageURL"]["tmp_name"];
-
-            $form->setData($data);
-            var_dump($form);
-            if($form->isValid()) {
-                $data = $form->getData();
-                var_dump($data);
-            }               
-            */
         } else {
             $form->setData([
                     'productName'=>$product->productName,

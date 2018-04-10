@@ -63,8 +63,6 @@ class AuthManager
         if ($mode!='restrictive' && $mode!='permissive')
             throw new \Exception('Invalid access filter mode (expected either restrictive or permissive mode');
         
-            var_dump($this->config);
-        var_dump(isset($this->config['controllers'][$controllerName]));
         if (isset($this->config['controllers'][$controllerName])) {
             $items = $this->config['controllers'][$controllerName];
             foreach ($items as $item) {
