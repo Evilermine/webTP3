@@ -7,8 +7,8 @@ use Zend\View\Model\ViewModel;
 use User\Form\SigninForm;
 use User\Form\SignupForm;
 use User\Models\User;
-use User\Service\AuthManager;
-use User\Service\UserManager;
+use User\Services\AuthManager;
+use User\Services\UserManager;
 use Zend\Authentication\Result;
 
 class AuthController extends AbstractActionController
@@ -20,7 +20,6 @@ class AuthController extends AbstractActionController
         $this->_authManager = $authManager;
         $this->_userManager = $userManager;
     }
-
 
     public function loginAction(){
         $id = (string)$this->params()->fromRoute('username', -1);
@@ -50,7 +49,10 @@ class AuthController extends AbstractActionController
     
     public function logoutAction()
     {
-        $this->_authManager->logout();
+        if($this->_authManager->isLogged())
+            $this->_authManager->logout();
+
+        return $this->redirect()->toRoute('catalogue');
     }
 
     public function signupAction(){

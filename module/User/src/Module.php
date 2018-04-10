@@ -17,56 +17,58 @@ class Module implements ConfigProviderInterface
     }
 
     /**
-     * This method is called once the MVC bootstrapping is complete and allows
-     * to register event listeners. 
+     * Méthodes appelé une seule fois lors de la mise en place du module
+     * Permet d'enregistrer des listeners d'évènements 
      */
     public function onBootstrap(MvcEvent $event)
     {
-        // Get event manager.
+        // Récupération du gestionnaire d'évènement
         $eventManager = $event->getApplication()->getEventManager();
         $sharedEventManager = $eventManager->getSharedManager();
-        // Register the event listener method. 
+
+        // Enregistrement de la méthode onDispatch comme gestionnaire d'évènement
         $sharedEventManager->attach(AbstractActionController::class, 
                 MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
     }
     
     /**
-     * Event listener method for the 'Dispatch' event. We listen to the Dispatch
-     * event to call the access filter. The access filter allows to determine if
-     * the current visitor is allowed to see the page or not. If he/she
-     * is not authenticated and is not allowed to see the page, we redirect the user 
-     * to the login page.
+     * Intercepte chacune des requêtes envoyé aux contrôleurs et vérifies
+     * si il est autoriser en appelant la méthode filterAccess
      */
     public function onDispatch(MvcEvent $event)
     {
-        // Get controller and action to which the HTTP request was dispatched.
+        // getTarget nous renvoie le contrôleur visé
         $controller = $event->getTarget();
         $controllerName = $event->getRouteMatch()->getParam('controller', null);
+        // Récupération de l'action pour ce contrôleur
         $actionName = $event->getRouteMatch()->getParam('action', null);
+
+        var_dump($controllerName);
+        var_dump($actionName);
         
-        // Convert dash-style action name to camel-case.
+        // Permet de convertir edit-member en editMember
         $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
         
-        // Get the instance of AuthManager service.
+        // Récupère l'instance du gestionnaire d'authentification
         $authManager = $event->getApplication()->getServiceManager()->get(AuthManager::class);
         
-        // Execute the access filter on every controller except AuthController
-        // (to avoid infinite redirect).
-        if ($controllerName!=AuthController::class && 
-            !$authManager->filterAccess($controllerName, $actionName)) {
+        // Pour chaque contrôleur on vérifie si l'accès est autorisé
+        // En evitant pour AuthController, cela causerait une boucle infini
+        if ($controllerName!=AuthController::class && !$authManager->filterAccess($controllerName, $actionName)) {
             
-            // Remember the URL of the page the user tried to access. We will
-            // redirect the user to that URL after successful login.
+            // Récupération de l'URL que l'utilisateur voulait accéder
+            // Permet de le rediriger après authentification
             $uri = $event->getApplication()->getRequest()->getUri();
-            // Make the URL relative (remove scheme, user info, host name and port)
-            // to avoid redirecting to other domain by a malicious user.
+
+            // Retire toutes les données non importantes pour ne garder que le chemin relatif
+            // Permet de ne pas avoir d'URL de redirection tel que http://malicious.com
             $uri->setScheme(null)
                 ->setHost(null)
                 ->setPort(null)
                 ->setUserInfo(null);
             $redirectUrl = $uri->toString();
             
-            // Redirect the user to the "Login" page.
+            // Redirige vers la page de login
             return $controller->redirect()->toRoute('login', [], 
                     ['query'=>['redirectUrl'=>$redirectUrl]]);
         }

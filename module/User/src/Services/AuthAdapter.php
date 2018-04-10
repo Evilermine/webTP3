@@ -35,12 +35,12 @@ class AuthAdapter implements AdapterInterface
         if (base64_decode($user->_hashedPass) == $sentPass) {
             return new Result(
                     Result::SUCCESS, 
-                    $this->_username, 
+                    $this->username, 
                     ['Authenticated successfully.']);        
         }             
         
         return new Result(
-                Result::FAILURE_CREDENTIAL_INVALID, 
+                Result::FAILURE_CREDENTIAL_INVALID,  
                 null, 
                 ['Invalid password.']);        
     }

@@ -5,7 +5,6 @@ use Zend\Authentication\Result;
 use Zend\Authentication\AuthenticationService;
 use Zend\Session\SessionManager;
 
-
 class AuthManager
 {
     private $authService;
@@ -32,8 +31,6 @@ class AuthManager
         if ($result->getCode()==Result::SUCCESS) {
             $this->sessionManager->rememberMe(60*60*24*30); // 30 jours
         }
-
-        var_dump($result);
         
         return $result;
     }
@@ -47,7 +44,11 @@ class AuthManager
         $this->authService->clearIdentity();               
     }
 
-    public function filterAccess($controllerName, $actionName)
+    public function isLogged() {
+        return $this->authService->hasIdentity();
+    }
+
+    public function filterAccess($controllerName, $actionName, $config)
     {
         // Determine mode - 'restrictive' (default) or 'permissive'. In restrictive
         // mode all controller actions must be explicitly listed under the 'access_filter'
@@ -55,12 +56,12 @@ class AuthManager
         // In permissive mode, if an action is not listed under the 'access_filter' key, 
         // access to it is permitted to anyone (even for not logged in users.
         // Restrictive mode is more secure and recommended to use.
-        $mode = isset($this->config['options']['mode'])?$this->config['options']['mode']:'restrictive';
+        $mode = isset($config['options']['mode'])?$config['options']['mode']:'restrictive';
         if ($mode!='restrictive' && $mode!='permissive')
             throw new \Exception('Invalid access filter mode (expected either restrictive or permissive mode');
         
-        if (isset($this->config['controllers'][$controllerName])) {
-            $items = $this->config['controllers'][$controllerName];
+        if (isset($config['controllers'][$controllerName])) {
+            $items = $config['controllers'][$controllerName];
             foreach ($items as $item) {
                 $actionList = $item['actions'];
                 $allow = $item['allow'];
@@ -68,7 +69,7 @@ class AuthManager
                     $actionList=='*') {
                     if ($allow=='*')
                         return true; // Anyone is allowed to see the page.
-                    else if ($allow=='@' && $this->authService->hasIdentity()) {
+                    else if ($allow=='@' && $authService->hasIdentity()) {
                         return true; // Only authenticated user is allowed to see the page.
                     } else {                    
                         return false; // Access denied.
