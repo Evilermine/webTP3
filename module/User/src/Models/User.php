@@ -2,10 +2,12 @@
 
 namespace User\Models;
 
-class User{
+class User {
     public $_username;
     public $_salt;
     public $_hashedPass;
+
+    protected $_dependantTables = ['userprofiles'];
 
     public function __construct() 
     {

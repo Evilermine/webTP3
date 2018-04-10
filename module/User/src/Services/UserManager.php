@@ -2,8 +2,9 @@
 namespace User\Services;
 
 use Zend\Db\TableGateway\TableGatewayInterface;  
+use Zend\Db\TableAbstract;
 
-class UserManager {
+class UserManager{
     protected $_tableGateway;
 
     public function __construct(TableGatewayInterface $tableGateway){
@@ -24,6 +25,12 @@ class UserManager {
             'username' => $data['username'],
             'salt' => $salt,
             'password' => $base64pass,
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'country' => $data['country'],
         ];  
 
         $this->_tableGateway->insert($insert);

@@ -12,6 +12,7 @@ use Zend\View\Model\ViewModel;
 use Application\Services\CatalogueTable;
 use Application\Form\ProductForm;
 use Application\Models\Product;
+use Application\Services\BasketManager;
 
 class IndexController extends AbstractActionController
 {
@@ -30,6 +31,12 @@ class IndexController extends AbstractActionController
         return new ViewModel([
             'products' => $this->_table->fetchAll(),
         ]);
+    }
+
+    public function basketAction(){
+        $basket = new Basket();
+
+        return new ViewModel();
     }
 
     public function addProductAction(){

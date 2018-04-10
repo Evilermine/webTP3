@@ -50,7 +50,7 @@ class AuthController extends AbstractActionController
     
     public function logoutAction()
     {
-
+        $this->_authManager->logout();
     }
 
     public function signupAction(){
