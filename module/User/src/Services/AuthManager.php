@@ -9,13 +9,14 @@ use Zend\Session\SessionManager;
 class AuthManager
 {
     private $authService;
-    
     private $sessionManager;
+    private $config;
 
-    public function __construct(AuthenticationService $authService, SessionManager $sessionManager) 
+    public function __construct(AuthenticationService $authService, SessionManager $sessionManager, $config) 
     {
         $this->authService = $authService;
         $this->sessionManager = $sessionManager;
+        $this->config = $config;
     }
     
     public function login($username, $password)
@@ -32,8 +33,6 @@ class AuthManager
         if ($result->getCode()==Result::SUCCESS) {
             $this->sessionManager->rememberMe(60*60*24*30); // 30 jours
         }
-
-        var_dump($result);
         
         return $result;
     }
@@ -54,8 +53,6 @@ class AuthManager
 
     public function filterAccess($controllerName, $actionName)
     {
-        var_dump($controllerName);
-        var_dump($actionName);
         // Determine mode - 'restrictive' (default) or 'permissive'. In restrictive
         // mode all controller actions must be explicitly listed under the 'access_filter'
         // config key, and access is denied to any not listed action for unauthorized users. 
@@ -66,6 +63,8 @@ class AuthManager
         if ($mode!='restrictive' && $mode!='permissive')
             throw new \Exception('Invalid access filter mode (expected either restrictive or permissive mode');
         
+            var_dump($this->config);
+        var_dump(isset($this->config['controllers'][$controllerName]));
         if (isset($this->config['controllers'][$controllerName])) {
             $items = $this->config['controllers'][$controllerName];
             foreach ($items as $item) {

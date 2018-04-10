@@ -88,4 +88,15 @@ return [
             __DIR__ . '/../view/',
         ],
     ],
+    'access_filter' => [
+        'options' => [
+            'mode' => 'restrictive',
+        ],
+        'controllers' => [
+            Controller\IndexController::class => [
+                ['actions' => ['catalogue', 'index'], 'allow' => '*'],
+                ['actions' => ['addProduct'], 'allow' => '@'],
+            ]
+        ]
+    ]
 ];
